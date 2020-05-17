@@ -87,7 +87,7 @@
     <string name="stats_enable_in_settings">Enable in Settings</string>
     <string name="enable_ice">Enable ICE Options</string>
     <string name="ice_options">Enable ICE options</string>
-    <string name="app_name">Video</string>
+    <string name="app_name">Video Chat</string>
     <string name="client_name">Client Name</string>
     <string name="login">LOG IN</string>
     <string name="settings">Settings</string>
@@ -160,6 +160,7 @@
     <string name="stats_disabled">Stats disabled</string>
     <string name="profile_picture">Profile picture</string>
     <string name="number">Number</string>
+    <string name="chat_menu_item">Chat</string>
 
     <string-array name="ice_trans_policy_array">
         <item>All</item>

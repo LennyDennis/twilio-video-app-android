@@ -20,6 +20,7 @@ import android.content.SharedPreferences
 import com.twilio.video.app.auth.CommunityLoginResult.CommunityLoginFailureResult
 import com.twilio.video.app.auth.CommunityLoginResult.CommunityLoginSuccessResult
 import com.twilio.video.app.data.PASSCODE
+import com.twilio.video.app.data.Preferences
 import com.twilio.video.app.data.Preferences.DISPLAY_NAME
 import com.twilio.video.app.data.api.AuthServiceException
 import com.twilio.video.app.data.api.TokenService
@@ -47,6 +48,7 @@ class CommunityAuthenticator constructor(
         return rxSingle(coroutineContext) {
             if (loginEvent is LoginEvent.CommunityLoginEvent) {
                 try {
+                    securePreferences.putSecureString(Preferences.TOPOLOGY, Preferences.TOPOLOGY_DEFAULT)
                     tokenService.getToken(identity = loginEvent.identity, passcode = loginEvent.passcode)
 
                     sharedPreferences.putString(DISPLAY_NAME, loginEvent.identity)

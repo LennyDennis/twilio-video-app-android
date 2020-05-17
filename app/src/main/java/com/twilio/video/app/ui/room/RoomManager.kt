@@ -98,6 +98,7 @@ class RoomManager(
                         .enableNetworkQuality(isNetworkQualityEnabled)
                         .networkQualityConfiguration(configuration)
 
+
                 val maxVideoBitrate = sharedPreferences.getInt(
                         Preferences.MAX_VIDEO_BITRATE,
                         Preferences.MAX_VIDEO_BITRATE_DEFAULT)

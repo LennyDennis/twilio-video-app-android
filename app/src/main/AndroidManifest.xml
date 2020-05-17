@@ -27,7 +27,6 @@
             android:configChanges="orientation|screenSize">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
-
                 <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
             <intent-filter android:autoVerify="true"
@@ -53,6 +52,10 @@
         <activity android:name=".ui.settings.SettingsActivity"
             android:parentActivityName=".ui.room.RoomActivity"
             android:label="@string/settings"
+            android:theme="@style/AppTheme.Settings" />
+        <activity android:name=".ui.chat.ChatActivity"
+            android:parentActivityName=".ui.room.RoomActivity"
+            android:label="@string/chat_menu_item"
             android:theme="@style/AppTheme.Settings" />
         <service android:name=".ui.room.VideoService"/>
     </application>

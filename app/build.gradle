@@ -39,7 +39,7 @@ android {
     defaultConfig {
         applicationId "com.twilio.video.app"
 
-        minSdkVersion 16
+        minSdkVersion 19
         targetSdkVersion 28
 
         versionName "0.1.0"
@@ -138,6 +138,8 @@ dependencies {
     def daggerAndroidProcessor = "com.google.dagger:dagger-android-processor:$daggerVersion"
     def daggerCompiler = "com.google.dagger:dagger-compiler:$daggerVersion"
     def retrofitVersion = '2.6.4'
+    def kotlinVersion = '1.3.71'
+    def scarletVersion = '0.1.9'
     def espressoVersion = '3.2.0'
     def espresso = "androidx.test.espresso:espresso-core:$espressoVersion"
     def androidXTest = '1.2.0'

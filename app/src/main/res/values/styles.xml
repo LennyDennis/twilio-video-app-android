@@ -24,7 +24,7 @@
         <item name="android:textColorHint">@color/login_hint</item>
     </style>
     <style name="AppTheme.Settings" parent="AppTheme">
-        <item name="colorAccent">@color/colorPrimary</item>
+        <item name="colorAccent">@color/colorPrimaryDark</item>
         <item name="displayOptions">showHome|showTitle|homeAsUp</item>
         <item name="preferenceTheme">@style/PreferenceThemeOverlay.v14.Material</item>
     </style>

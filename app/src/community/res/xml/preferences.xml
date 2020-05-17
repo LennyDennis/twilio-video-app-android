@@ -35,6 +35,19 @@
             app:pinRadius="36dp"
             app:startKey="pref_min_video_dim" />
     </PreferenceCategory>
+    <PreferenceCategory android:title="@string/settings_screen_advanced">
+        <ListPreference
+            android:defaultValue="group"
+            android:entries="@array/settings_screen_topology_array"
+            android:entryValues="@array/settings_screen_topology_array"
+            android:key="pref_topology"
+            android:summary="%s"
+            android:title="@string/settings_screen_topology"
+            android:negativeButtonText="@null"/>
+        <EditTextPreference
+            android:key="pref_display_name"
+            android:title="@string/settings_screen_identity"/>
+    </PreferenceCategory>
     <PreferenceCategory android:title="@string/settings_screen_about">
         <Preference
             android:key="pref_version_name"

@@ -15,17 +15,19 @@
  */
 package com.twilio.video.app.data.api
 
+import android.content.SharedPreferences
 import com.google.gson.Gson
 import com.google.gson.JsonSyntaxException
 import com.twilio.video.app.data.PASSCODE
+import com.twilio.video.app.data.Preferences
 import com.twilio.video.app.security.SecurePreferences
 import retrofit2.HttpException
 import timber.log.Timber
 
 class AuthServiceRepository(
-    private val authService: AuthService,
-    private val securePreferences: SecurePreferences
-) : TokenService {
+        private val authService: AuthService,
+        private val securePreferences: SecurePreferences
+        ) : TokenService {
 
     override suspend fun getToken(identity: String?, roomName: String?): String {
         return getToken(identity, roomName, passcode = null)
@@ -33,10 +35,12 @@ class AuthServiceRepository(
 
     override suspend fun getToken(identity: String?, roomName: String?, passcode: String?): String {
         getPasscode(passcode)?.let { passcode ->
+            val topology = securePreferences.getSecureString(Preferences.TOPOLOGY)
             val requestBody = AuthServiceRequestDTO(
                     passcode,
                     identity,
-                    roomName)
+                    roomName,
+                    topology)
             val appId = passcode.substring(6)
             val url = URL_PREFIX + appId + URL_SUFFIX
 

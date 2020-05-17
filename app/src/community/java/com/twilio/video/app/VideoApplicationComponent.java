@@ -20,6 +20,8 @@ import com.twilio.video.app.auth.CommunityAuthModule;
 import com.twilio.video.app.data.AuthServiceModule;
 import com.twilio.video.app.security.SecurityModule;
 import com.twilio.video.app.ui.CommunityScreenSelectorModule;
+import com.twilio.video.app.ui.chat.ChatActivityModule;
+import com.twilio.video.app.ui.chat.ChatFragmentModule;
 import com.twilio.video.app.ui.login.CommunityLoginActivityModule;
 import com.twilio.video.app.ui.room.CommunityRoomManagerModule;
 import com.twilio.video.app.ui.room.RoomActivityModule;
@@ -42,6 +44,8 @@ import dagger.android.AndroidInjectionModule;
         SplashActivityModule.class,
         CommunityLoginActivityModule.class,
         RoomActivityModule.class,
+            ChatFragmentModule.class,
+            ChatActivityModule.class,
         SettingsActivityModule.class,
         SettingsFragmentModule.class,
         VideoServiceModule.class,

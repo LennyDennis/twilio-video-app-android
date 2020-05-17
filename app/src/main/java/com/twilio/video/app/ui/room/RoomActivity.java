@@ -98,6 +98,7 @@ import com.twilio.video.app.data.Preferences;
 import com.twilio.video.app.data.api.AuthServiceError;
 import com.twilio.video.app.data.api.TokenService;
 import com.twilio.video.app.data.api.VideoAppService;
+import com.twilio.video.app.ui.chat.ChatActivity;
 import com.twilio.video.app.ui.room.RoomEvent.ConnectFailure;
 import com.twilio.video.app.ui.room.RoomEvent.Connecting;
 import com.twilio.video.app.ui.room.RoomEvent.DominantSpeakerChanged;
@@ -155,6 +156,9 @@ public class RoomActivity extends BaseActivity {
 
     @BindView(R.id.disconnect)
     ImageButton disconnectButton;
+
+    @BindView(R.id.chat_menu_item)
+    ImageButton chatButton;
 
     @BindView(R.id.primary_video)
     ParticipantPrimaryView primaryVideoView;
@@ -214,6 +218,7 @@ public class RoomActivity extends BaseActivity {
     private boolean savedIsSpeakerPhoneOn = false;
 
     private String displayName;
+    private String roomName;
     private LocalParticipant localParticipant;
     private String localParticipantSid = LOCAL_PARTICIPANT_STUB_SID;
     private Room room;
@@ -268,6 +273,7 @@ public class RoomActivity extends BaseActivity {
     public static void startActivity(Context context, Uri appLink) {
         Intent intent = new Intent(context, RoomActivity.class);
         intent.setData(appLink);
+
 
         context.startActivity(intent);
     }
@@ -337,7 +343,7 @@ public class RoomActivity extends BaseActivity {
     private boolean checkIntentURI() {
         boolean isAppLinkProvided = false;
         Uri uri = getIntent().getData();
-        String roomName = new UriRoomParser(new UriWrapper(uri)).parseRoom();
+        roomName = new UriRoomParser(new UriWrapper(uri)).parseRoom();
         if (roomName != null) {
             roomEditText.setText(roomName);
             isAppLinkProvided = true;
@@ -462,6 +468,7 @@ public class RoomActivity extends BaseActivity {
 
                 Intent intent = new Intent(RoomActivity.this, SettingsActivity.class);
                 startActivity(intent);
+
                 return true;
             default:
                 return super.onOptionsItemSelected(item);
@@ -506,7 +513,7 @@ public class RoomActivity extends BaseActivity {
 
         Editable text = roomEditText.getText();
         if (text != null) {
-            final String roomName = text.toString();
+            roomName = text.toString();
 
             roomViewModel.connectToRoom(displayName, roomName, isNetworkQualityEnabled());
         }
@@ -516,6 +523,19 @@ public class RoomActivity extends BaseActivity {
     void disconnectButtonClick() {
         roomViewModel.disconnect();
         stopScreenCapture();
+    }
+
+    @OnClick(R.id.chat_menu_item)
+    void chatButtonClick() {
+        removeCameraTrack();
+        String name = roomEditText.getText().toString();
+        sharedPreferences
+                .edit()
+                .putString(Preferences.ROOM_NAME, name)
+                .apply();
+        Intent chatIntent = new Intent(this, ChatActivity.class);
+        startActivity(chatIntent);
+
     }
 
     @OnClick(R.id.local_audio_image_button)
@@ -771,6 +791,7 @@ public class RoomActivity extends BaseActivity {
 
     private void updateUi(Room room, RoomEvent roomEvent) {
         int disconnectButtonState = View.GONE;
+        int chatButtonState = View.GONE;
         int joinRoomLayoutState = View.VISIBLE;
         int joinStatusLayoutState = View.GONE;
 
@@ -780,13 +801,15 @@ public class RoomActivity extends BaseActivity {
         Editable roomEditable = roomEditText.getText();
         boolean connectButtonEnabled = roomEditable != null && !roomEditable.toString().isEmpty();
 
-        String roomName = displayName;
+        roomName = displayName;
         String toolbarTitle = displayName;
         String joinStatus = "";
         int recordingWarningVisibility = View.GONE;
 
         if (roomEvent instanceof Connecting) {
             disconnectButtonState = View.VISIBLE;
+            chatButtonState = View.VISIBLE;
+
             joinRoomLayoutState = View.GONE;
             joinStatusLayoutState = View.VISIBLE;
             recordingWarningVisibility = View.VISIBLE;
@@ -804,6 +827,7 @@ public class RoomActivity extends BaseActivity {
             switch (room.getState()) {
                 case CONNECTED:
                     disconnectButtonState = View.VISIBLE;
+                    chatButtonState = View.VISIBLE;
                     joinRoomLayoutState = View.GONE;
                     joinStatusLayoutState = View.GONE;
                     settingsMenuItemState = false;
@@ -836,6 +860,7 @@ public class RoomActivity extends BaseActivity {
         statsRecyclerView.setLayoutManager(new LinearLayoutManager(this));
 
         disconnectButton.setVisibility(disconnectButtonState);
+        chatButton.setVisibility(chatButtonState);
         joinRoomLayout.setVisibility(joinRoomLayoutState);
         joinStatusLayout.setVisibility(joinStatusLayoutState);
         connect.setEnabled(connectButtonEnabled);
