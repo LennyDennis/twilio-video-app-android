@@ -9,6 +9,7 @@ This application demonstrates multi-party voice and video built with [Twilio’s
 ## Features
 
 - [x] Video conferencing with real-time video and audio
+- [x] Realtime chat over websockets
 - [x] Enable/disable camera
 - [x] Mute/unmute mic
 - [x] Switch between front and back camera
@@ -73,6 +74,14 @@ The passcode will expire after one week. Follow the steps below to sign in with 
 1. [Generate a new passcode](#deploy-twilio-access-token-server).
 1. In the app tap `Settings > Sign Out`.
 1. Repeat the [steps above](#start-video-conference).
+
+### Chat over Websockets
+You can subscribe to the websocket server over [Go Chat Websocket](wss://chat.starlineventures.com/subscribe)
+The UI for the chat interface is an easily customizable layout
+
+Once you login with the passcode and join a room you will see a floating chat icon to the right
+
+<img src="https://user-images.githubusercontent.com/441184/82161976-10de0900-986f-11ea-9292-628128f52221.jpg" height="350" />
 
 ## Tests
 
