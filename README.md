@@ -83,6 +83,8 @@ Once you login with the passcode and join a room you will see a floating chat ic
 
 <img src="https://user-images.githubusercontent.com/441184/82161976-10de0900-986f-11ea-9292-628128f52221.jpg" height="350" />
 
+You can download a version of the [Android app](https://f001.backblazeb2.com/file/sv-public/app-community-video-chat-debug.apk)
+
 ## Tests
 
 ### Unit Tests
